@@ -1,2 +1,5 @@
 ---
-# tasks file for fabricator
+#
+# ─── USER AND GROUP SETUP ───────────────────────────────────────────────────────
+#
+include_tasks: user.yml

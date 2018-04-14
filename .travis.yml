@@ -1,0 +1,20 @@
+---
+services: docker
+
+env:
+  - distro: centos7
+
+script:
+  # Configure test script so we can run extra tests after playbook is run.
+  - export container_id=$(date +%s)
+  - export cleanup=false
+
+  # Download test shim.
+  - wget -O ${PWD}/tests/test.sh https://gist.githubusercontent.com/rppf/2d078db0c3250fae9c98484622cd66bf/raw/
+  - chmod +x ${PWD}/tests/test.sh
+
+  # Run tests.
+  - ${PWD}/tests/test.sh
+
+notifications:
+  webhooks: https://galaxy.ansible.com/api/v1/notifications/

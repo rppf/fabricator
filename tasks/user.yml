@@ -1,0 +1,17 @@
+---
+- name: Create an user www-data
+  user:
+    name: www-data
+    home: /var/www
+    group: www-data
+    system: yes
+    shell: sbin/nologin
+    seuser: user_u
+
+- name: Create a directory for your web files
+  file:
+    path: /var/www
+    state: directory
+    owner: www-data
+    group: www-data
+    mode: 0555
