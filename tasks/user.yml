@@ -12,7 +12,7 @@
     state: present
     group: www-data
     system: yes
-    shell: sbin/nologin
+    shell: /sbin/nologin
 
 - name: Create a directory for your web files
   file:
