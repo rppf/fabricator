@@ -1,4 +1,9 @@
 ---
+- name: Enable SELinux
+  selinux:
+    policy: targeted
+    state: enforcing
+
 - name: Create a group www-data
   group:
     name: www-data
