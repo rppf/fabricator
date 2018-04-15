@@ -1,14 +1,4 @@
 ---
-- name: Install libselinux-python
-  yum:
-    name: libselinux-python
-    state: installed
-
-- name: Enable SELinux
-  selinux:
-    policy: targeted
-    state: enforcing
-
 - name: Create a group www-data
   group:
     name: www-data
@@ -23,7 +13,6 @@
     group: www-data
     system: yes
     shell: sbin/nologin
-    seuser: user_u
 
 - name: Create a directory for your web files
   file:
