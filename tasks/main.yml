@@ -2,7 +2,7 @@
 #
 # ─── USER AND GROUP SETUP ───────────────────────────────────────────────────────
 #
-#- include_tasks: user.yml
+- include_tasks: user.yml
 
 #
 # ─── DOWNLOAD AND INSTALL PHP 7 ─────────────────────────────────────────────────
