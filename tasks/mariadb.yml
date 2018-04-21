@@ -7,13 +7,18 @@
     src: MariaDB.repo.j2
     dest: /etc/yum.repos.d
 
+- name: Update yum cache
+  yum:
+    name: MariaDB
+    update_cache: yes
+
 - name: Install MariaDB
   yum:
     name: "{{ item }}"
     state: latest
   with_items:
-    - MariaDB
     - MariaDB-server
+    - MariaDB-client
     - MySQL-python
 
 # ────────────────────────────────────────────────────────────────────────────────
