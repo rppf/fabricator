@@ -12,9 +12,9 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - mariadb-server
-    - mariadb-client
-    - python-mysqldb
+    - MariaDB
+    - MariaDB-server
+    - MySQL-python
 
 # ────────────────────────────────────────────────────────────────────────────────
 - name: Ensure service is started
