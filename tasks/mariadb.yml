@@ -9,7 +9,7 @@
 
 - name: Update yum cache
   yum:
-    name: MariaDB
+    name: mariadb
     update_cache: yes
 
 - name: Install MariaDB
