@@ -2,12 +2,12 @@
 #
 # ─── USER AND GROUP SETUP ───────────────────────────────────────────────────────
 #
-- include_tasks: pre.yml
+#- include_tasks: pre.yml
 
 #
 # ─── DOWNLOAD AND INSTALL PHP 7 ─────────────────────────────────────────────────
 #
-- include_tasks: php.yml
+#- include_tasks: php.yml
 
 #
 # ─── DOWNLOAD & INSTALL MARIADB ─────────────────────────────────────────────────
