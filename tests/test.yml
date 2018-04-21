@@ -1,5 +1,14 @@
 ---
 - hosts: localhost
   become: true
+  vars:
+  # Password for your root user.
+  - db_root_password: "foo_root_password"
+  # Name of your database.
+  - database_name: "foo_db"
+  # Name of your custom user in database.
+  - database_user: "foo_user"
+  # Password of your custome user.
+  - database_password: "foo_custom_user_pasword"
   roles:
     - role_under_test

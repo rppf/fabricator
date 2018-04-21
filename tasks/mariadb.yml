@@ -1,0 +1,100 @@
+---
+#
+# ─── INSTALL MARIADB ────────────────────────────────────────────────────────────
+#
+- name: Move MariaDB.repo to yum repo path
+  template:
+    src: MariaDB.repo.j2
+    dest: /etc/yum.repos.d
+
+- name: Install MariaDB
+  yum:
+    name: "{{ item }}"
+    state: latest
+  with_items:
+    - MariaDB-server
+    - MariaDB-client
+    - MySQL-python
+
+# ────────────────────────────────────────────────────────────────────────────────
+- name: Ensure service is started
+  service:
+    name: mariadb
+    state: started
+    enabled: yes
+# ────────────────────────────────────────────────────────────────────────────────
+
+#
+# ─── CONFIG MARIADB ─────────────────────────────────────────────────────────────
+#
+- name: Install server config file
+  template:
+    src: etc_my.cnf.d_server.cnf.j2
+    dest: "{{ mariadb_config_server }}"
+  notify: restart mariadb
+
+- name: Install network config file
+  template:
+    src: etc_my.cnf.d_network.cnf.j2
+    dest: "{{ mariadb_config_network }}"
+  notify: restart mariadb
+
+#
+# ─── SET ROOT PASSWORD ──────────────────────────────────────────────────────────
+#
+- name: Check if root password is set
+  shell: >
+    mysqladmin -u -root status
+  changed_when: false
+  failed_when: false
+  register: root_pwd_check
+
+- name: Set MariaDB root password
+  mysql_user:
+    name: root
+    password: "{{ mariadb_root_password }}"
+    host_all: yes
+    state: present
+  when: root_pwd_check.rc == 0
+
+#
+# ─── CREATE DATABASES ───────────────────────────────────────────────────────────
+#
+- name: Remove test database
+  mysql_db:
+    name: test
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: absent
+
+- name: Create user defined databases
+  mysql_db:
+    name: "{{ item.name }}"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    encoding: utf8mb4
+    collation: utf8mb4_unicode_ci
+    state: present
+  with_items: "{{ mariadb_databases }}"
+  register: db_creation
+
+#
+# ─── CREATE USERS FOR MARIADB ───────────────────────────────────────────────────
+#
+- name: Remove anonymous users
+  mysql_user:
+    name: ''
+    host_all: yes
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: absent
+
+- name: Create the users
+  mysql_user:
+    name: "{{ database_user }}"
+    password: "{{ database_password }}"
+    host: localhost
+    priv: "{{  database_name }}.*:ALL"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: present
