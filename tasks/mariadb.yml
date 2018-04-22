@@ -12,8 +12,8 @@
     name: "{{ item }}"
     state: latest
   with_items:
-    - mariadb
-    - mariadb-server
+    - MariaDB-server
+    - MariaDB-client
     - MySQL-python
 
 # ────────────────────────────────────────────────────────────────────────────────
