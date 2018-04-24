@@ -14,9 +14,9 @@
   with_items:
     - mariadb
     - mariadb-server
-    - mariadb-libs
     - MySQL-python
-    - perl-DBD-MySQL
+    - expect
+
 # ────────────────────────────────────────────────────────────────────────────────
 - name: Ensure service is started
   service:
@@ -26,48 +26,22 @@
 # ────────────────────────────────────────────────────────────────────────────────
 
 #
-# ─── CONFIG MARIADB ─────────────────────────────────────────────────────────────
+# ─── DOWNLOAD MYSQL_SECURE INSTALLATION SCRIPT ──────────────────────────────────
 #
-- name: Install server config file
-  template:
-    src: etc_my.cnf.d_server.cnf.j2
-    dest: "{{ mariadb_config_server }}"
-  notify: restart mariadb
-
-- name: Install network config file
-  template:
-    src: etc_my.cnf.d_network.cnf.j2
-    dest: "{{ mariadb_config_network }}"
-  notify: restart mariadb
+- name: Download mysql_secure installation script
+  get_url:
+    url: https://gist.githubusercontent.com/rppf/b0930409cce6d2e2cfdfedc1b10c340e/raw/977c5dce63a999b5c239a08a5aec99b58ce72203/mysql_secure.sh
+    dest: /tmp
 
 #
-# ─── SET ROOT PASSWORD ──────────────────────────────────────────────────────────
+# ─── RUN MYSQL_SECURE SCRIPT ────────────────────────────────────────────────────
 #
-- name: Check if root password is set
-  shell: >
-    mysqladmin -u -root status
-  changed_when: false
-  failed_when: false
-  register: root_pwd_check
-
-- name: Set MariaDB root password
-  mysql_user:
-    name: root
-    password: "{{ mariadb_root_password }}"
-    host_all: yes
-    state: present
-  when: root_pwd_check.rc == 0
+- name: Run mysql_secure installation script
+  shell: bash /tmp/mysql_secure.sh '"{{ mariadb_root_password }}"'
 
 #
 # ─── CREATE DATABASES ───────────────────────────────────────────────────────────
 #
-- name: Remove test database
-  mysql_db:
-    name: test
-    login_user: root
-    login_password: "{{ mariadb_root_password }}"
-    state: absent
-
 - name: Create user defined databases
   mysql_db:
     name: "{{ item.name }}"
@@ -82,14 +56,6 @@
 #
 # ─── CREATE USERS FOR MARIADB ───────────────────────────────────────────────────
 #
-- name: Remove anonymous users
-  mysql_user:
-    name: ''
-    host_all: yes
-    login_user: root
-    login_password: "{{ mariadb_root_password }}"
-    state: absent
-
 - name: Create the users
   mysql_user:
     name: "{{ database_user }}"
