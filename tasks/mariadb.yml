@@ -30,7 +30,7 @@
 #
 - name: Download mysql_secure installation script
   get_url:
-    url:https://gist.githubusercontent.com/rppf/b0930409cce6d2e2cfdfedc1b10c340e/raw/2bf89d10eb036227fc6050aca41fa35ab7e3fbdb/mysql_secure.sh
+    url: https://gist.githubusercontent.com/rppf/b0930409cce6d2e2cfdfedc1b10c340e/raw/2bf89d10eb036227fc6050aca41fa35ab7e3fbdb/mysql_secure.sh
     dest: /tmp
 
 #
