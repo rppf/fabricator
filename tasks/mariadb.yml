@@ -15,7 +15,6 @@
     - mariadb
     - mariadb-server
     - MySQL-python
-    - expect
 
 # ────────────────────────────────────────────────────────────────────────────────
 - name: Ensure service is started
@@ -26,18 +25,22 @@
 # ────────────────────────────────────────────────────────────────────────────────
 
 #
-# ─── DOWNLOAD MYSQL_SECURE INSTALLATION SCRIPT ──────────────────────────────────
+# ─── SET ROOT PASSWORD ──────────────────────────────────────────────────────────
 #
-- name: Download mysql_secure installation script
-  get_url:
-    url: https://gist.githubusercontent.com/rppf/b0930409cce6d2e2cfdfedc1b10c340e/raw/2bf89d10eb036227fc6050aca41fa35ab7e3fbdb/mysql_secure.sh
-    dest: /tmp
+- name: Check if root password is set
+  shell: >
+    mysqladmin -u -root status
+  changed_when: false
+  failed_when: false
+  register: root_pwd_check
 
-#
-# ─── RUN MYSQL_SECURE SCRIPT ────────────────────────────────────────────────────
-#
-- name: Run mysql_secure installation script
-  shell: bash /tmp/mysql_secure.sh '"{{ mariadb_root_password }}"'
+- name: Set MariaDB root password
+  mysql_user:
+    name: root
+    password: "{{ mariadb_root_password }}"
+    host_all: yes
+    state: present
+when: root_pwd_check.rc == 0
 
 #
 # ─── CREATE DATABASES ───────────────────────────────────────────────────────────
@@ -56,6 +59,14 @@
 #
 # ─── CREATE USERS FOR MARIADB ───────────────────────────────────────────────────
 #
+- name: Remove anonymous users
+  mysql_user:
+    name: ''
+    host_all: yes
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: absent
+
 - name: Create the users
   mysql_user:
     name: "{{ database_user }}"
