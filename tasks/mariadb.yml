@@ -40,7 +40,7 @@
     password: "{{ mariadb_root_password }}"
     host_all: yes
     state: present
-when: root_pwd_check.rc == 0
+  when: root_pwd_check.rc == 0
 
 #
 # ─── CREATE DATABASES ───────────────────────────────────────────────────────────
