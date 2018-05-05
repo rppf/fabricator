@@ -1,0 +1,18 @@
+---
+- name: Download NodeJS
+  get_url:
+    url: https://rpm.nodesource.com/setup_8.x
+    dest: /tmp
+
+- name: Setup NodeJS
+  shell: bash - /tmp/setup_8.x
+
+- name: Install NodeJS
+  yum:
+    name: nodejs
+    state: latest
+
+- name: Install Yarn using npm
+  npm:
+    name: yarn
+    global: yes
