@@ -18,6 +18,7 @@
     permanent: true
     zone: redis
     port: 6397/tcp
+    state: enabled
 
 - name: Reload firewall
   command: firewall-cmd --reload
