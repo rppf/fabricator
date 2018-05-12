@@ -7,14 +7,19 @@
 #
 # ─── DOWNLOAD AND INSTALL PHP 7 ─────────────────────────────────────────────────
 #
-- include_tasks: php.yml
+#- include_tasks: php.yml
 
 #
 # ─── DOWNLOAD & INSTALL NODEJS ──────────────────────────────────────────────────
 #
-- include_tasks: nodejs.yml
+#- include_tasks: nodejs.yml
 
 #
 # ─── DOWNLOAD & INSTALL MARIADB ─────────────────────────────────────────────────
 #
 #- include_tasks: mariadb.yml
+
+#
+# ─── DOWNLOAD & INSTALL REDIS ───────────────────────────────────────────────────
+#
+- include_tasks: redis.yml
