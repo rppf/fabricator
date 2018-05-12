@@ -3,9 +3,3 @@
   service:
     name: php-fpm
     state: restarted
-
-- name: start & enable firewalld
-  service:
-    name: firewalld
-    state: started
-    enabled: yes

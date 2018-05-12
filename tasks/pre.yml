@@ -29,4 +29,9 @@
   with_items:
     - firewalld
     - epel-release
-  notify: start & enable firewalld
+
+- name: Start & enable firewalld
+  service:
+    name: firewalld
+    state: started
+    enabled: yes
