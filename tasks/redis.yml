@@ -4,7 +4,7 @@
     name: redis
     state: latest
 
-- name: Enable redis service:
+- name: Enable redis service
   service:
     name: redis
     state: started
