@@ -1,0 +1,23 @@
+---
+- name: Download & install redis
+  yum:
+    name: redis
+    state: latest
+
+- name: Enable redis service:
+  service:
+    name: redis
+    state: started
+    enabled: yes
+
+- name: Create a new zone named redis
+  command: firewall-cmd --permanent --new-zone=redis
+
+- name: Open port 6397
+  firewalld:
+    permanent: true
+    zone: redis
+    port: 6397/tcp
+
+- name: Reload firewall
+  command: firewall-cmd --reload

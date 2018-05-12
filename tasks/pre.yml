@@ -21,3 +21,12 @@
     owner: www-data
     group: www-data
     mode: 0555
+
+- name: Install firewalld & epel-release
+  yum:
+    name: firewalld
+    state: latest
+  with_items:
+    - firewalld
+    - epel-release
+  notify: start & enable firewalld

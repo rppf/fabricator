@@ -4,7 +4,8 @@
     name: php-fpm
     state: restarted
 
-- name: restart mariadb
+- name: start & enable firewalld
   service:
-    name: mariadb
-    state: restarted
+    name: firewalld
+    state: started
+    enabled: yes
