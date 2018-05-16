@@ -1,0 +1,64 @@
+---
+- name: Download Caddy
+  get_url:
+    url: "{{ caddy_download_url }}"
+    dest: /tmp/caddy.tar.gz
+
+- name: Extract Caddy
+  unarchive:
+    src: /tmp/caddy.tar.gz
+    dest: /tmp
+
+- name: Copy caddy binary to /usr/local/bin
+  copy:
+    src: /tmp/caddy
+    dest: "{{ caddy_bin_dir }}/caddy"
+    owner: root
+    group: root
+    mode: 0775
+
+- name: Give the caddy binary the ability to bind to privileged ports
+  command: setcap 'cap_net_bind_service=+ep' {{ caddy_bin_dir }}/cadd
+
+- name: Create a directory for Caddyfile
+  file:
+    path: "{{ caddy_conf_dir }}"
+    state: directory
+    owner: root
+    group: www-data
+    recurse: yes
+
+- name: Create a directory for the storage of SSL certs
+  file:
+    path: "{{ caddy_certs_dir }}"
+    state: directory
+    owner: www-data
+    group: root
+    recurse: yes
+    mode: 0770
+
+- name: Create Caddyfile
+  copy:
+    content: "{{ caddy_conf_file}}"
+    dest: "{{ caddy_conf_dir }}/Caddyfile"
+    owner: www-data
+    group: www-data
+    mode: 0444
+
+- name: Copy caddy init script to /etc/systemd/system
+  copy:
+    src: /tmp/init/linux-systemd/caddy.service
+    dest: /etc/systemd/system/
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Reload systemd
+  service:
+    daemon_reload: yes
+
+- name: Start and enable caddy service
+  service:
+    name: caddy
+    state: started
+    enabled: yes

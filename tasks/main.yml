@@ -20,6 +20,11 @@
 #- include_tasks: mariadb.yml
 
 #
+# ─── DOWNLOAD & INSTALL CADDY ───────────────────────────────────────────────────
+#
+- include_tasks: caddy.yml
+
+#
 # ─── DOWNLOAD & INSTALL REDIS ───────────────────────────────────────────────────
 #
 - include_tasks: redis.yml
