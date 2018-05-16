@@ -18,7 +18,7 @@
     mode: 0775
 
 - name: Give the caddy binary the ability to bind to privileged ports
-  command: setcap 'cap_net_bind_service=+ep' {{ caddy_bin_dir }}/cadd
+  command: setcap 'cap_net_bind_service=+ep' {{ caddy_bin_dir }}/caddy
 
 - name: Create a directory for Caddyfile
   file:
