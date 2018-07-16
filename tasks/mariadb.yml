@@ -5,7 +5,7 @@
 - name: Move MariaDB.repo to yum repo path
   template:
     src: MariaDB.repo.j2
-    dest: /etc/yum.repos.d
+    dest: /etc/yum.repos.d/MariaDB.repo
 
 - name: Install MariaDB
   yum:
