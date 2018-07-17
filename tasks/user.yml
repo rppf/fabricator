@@ -1,0 +1,9 @@
+---
+- name: Create a sudo user for the system
+  user:
+    name: "{{ username }}"
+    password: "{{ password }}"
+    groups: wheel
+    shell: /bin/bash
+    append: yes
+    createhome: yes
