@@ -30,8 +30,8 @@
     - epel-release
     - yum-plugin-priorities
 
-- name: Start & enable firewalld
-  service:
-    name: firewalld
-    state: started
-    enabled: yes
+#- name: Start & enable firewalld
+#  service:
+#    name: firewalld
+#    state: started
+#    enabled: yes
