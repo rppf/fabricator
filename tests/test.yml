@@ -11,8 +11,8 @@
   # Password of your custome user.
   - database_password: "foo_custom_user_pasword"
   # Server username
-  - username: rppf
+  - username: "rppf"
   # Username password
-  - password: raymondflorendo.320
+  - password: "raymondflorendo.320"
   roles:
     - role_under_test
