@@ -15,5 +15,6 @@
     dest: /etc/yum.repos.d/powerdns-rec-41.repo
 
 - name: Download PowerDNS recursor
-  yum: pdns-recursor
-  state: latest
+  yum:
+    name: pdns-recursor
+    state: latest
