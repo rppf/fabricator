@@ -28,7 +28,7 @@
     state: latest
   with_items:
     - epel-release
-    - yum-plugin-priorities
+    - firewalld
 
 - name: Start & enable firewalld
   service:
