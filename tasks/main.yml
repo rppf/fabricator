@@ -1,9 +1,5 @@
 ---
 #
-# ─── CREATE A SINGLE USER ───────────────────────────────────────────────────────
-#
-#- include_tasks: user.yml
-#
 # ─── USER AND GROUP SETUP ───────────────────────────────────────────────────────
 #
 - include_tasks: pre.yml
@@ -32,8 +28,3 @@
 # ─── DOWNLOAD & INSTALL REDIS ───────────────────────────────────────────────────
 #
 - include_tasks: redis.yml
-
-#
-# ─── DOWNLOAD AND INSTALL POWERDNS AUTHORITATIVE SERVER AND RECURSOR ────────────
-#
-#- include_tasks: pdns.yml
