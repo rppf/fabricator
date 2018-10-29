@@ -9,12 +9,11 @@
 
 - name: Install MariaDB
   yum:
-    name: "{{ item }}"
-    state: latest
-  with_items:
-    - MariaDB
-    - MariaDB-server
-    - MySQL-python
+    name:
+      - MariaDB
+      - MariaDB-server
+      - MySQL-python
+    state: present
 
 # ────────────────────────────────────────────────────────────────────────────────
 - name: Ensure service is started

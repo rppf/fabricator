@@ -24,11 +24,10 @@
 
 - name: Install firewalld & epel-release
   yum:
-    name: "{{ item }}"
+    name:
+      - epel-release
+      - firewalld
     state: latest
-  with_items:
-    - epel-release
-    - firewalld
 
 - name: Start & enable firewalld
   service:
