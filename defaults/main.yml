@@ -30,7 +30,7 @@ mariadb_root_password: "{{ db_root_password }}"
 mariadb_databases:
   - name: "{{ database_name }}"
 
-baseUrl: http://yum.mariadb.org/10.2/centos7-amd64
+baseUrl: http://yum.mariadb.org/10.3/centos7-amd64
 gpgKey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 
 #
