@@ -5,17 +5,18 @@
 
 - name: Install PHP 7
   yum:
-    name:
-      - php71w
-      - php71w-cli
-      - php71w-common
-      - php71w-mysql
-      - php71w-gd
-      - php71w-mcrypt
-      - php71w-mbstring
-      - php71w-fpm
-      - php71w-xml
-    state: present
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - php71w
+    - php71w-cli
+    - php71w-common
+    - php71w-mysql
+    - php71w-gd
+    - php71w-mcrypt
+    - php71w-mbstring
+    - php71w-fpm
+    - php71w-xml
 
 - name: Ensure pool directory exists
   file:
