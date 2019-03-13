@@ -1,3 +1,5 @@
+# Uncomment remote_src if you are going to install packages to a remote server.
+
 ---
 - name: Download Caddy
   get_url:
@@ -8,6 +10,7 @@
   unarchive:
     src: /tmp/caddy.tar.gz
     dest: /tmp
+    # remote_src: yes
 
 - name: Copy caddy binary to /usr/local/bin
   copy:
@@ -16,6 +19,7 @@
     owner: root
     group: root
     mode: 0775
+    # remote_src: yes
 
 - name: Give the caddy binary the ability to bind to privileged ports
   command: setcap 'cap_net_bind_service=+ep' {{ caddy_bin_dir }}/caddy
@@ -27,6 +31,7 @@
     owner: root
     group: www-data
     recurse: yes
+    # remote_src: yes
 
 - name: Create a directory for the storage of SSL certs
   file:
@@ -36,6 +41,7 @@
     group: root
     recurse: yes
     mode: 0770
+    # remote_src: yes
 
 - name: Create Caddyfile
   copy:
@@ -44,6 +50,7 @@
     owner: www-data
     group: www-data
     mode: 0444
+    # remote_src: yes
 
 - name: Copy caddy init script to /etc/systemd/system
   copy:
@@ -52,6 +59,7 @@
     owner: root
     group: root
     mode: 0644
+    # remote_src: yes
 
 - name: Reload systemd
   service:
