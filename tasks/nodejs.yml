@@ -5,7 +5,7 @@
     dest: /tmp
 
 - name: Setup NodeJS
-  shell: bash - /tmp/setup_8.x
+  shell: bash - /tmp/setup_10.x
 
 - name: Install NodeJS
   yum:
