@@ -8,15 +8,15 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - php71w
-    - php71w-cli
-    - php71w-common
-    - php71w-mysql
-    - php71w-gd
-    - php71w-mcrypt
-    - php71w-mbstring
-    - php71w-fpm
-    - php71w-xml
+    - php72w
+    - php72w-cli
+    - php72w-common
+    - php72w-mysql
+    - php72w-gd
+    - php72w-mcrypt
+    - php72w-mbstring
+    - php72w-fpm
+    - php72w-xml
 
 - name: Ensure pool directory exists
   file:
