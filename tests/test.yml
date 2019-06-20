@@ -8,11 +8,7 @@
   - database_name: "foo_db"
   # Name of your custom user in database.
   - database_user: "foo_user"
-  # Password of your custome user.
+  # Password of your custom user.
   - database_password: "foo_custom_user_pasword"
-  # Server username
-  - username: "rppf"
-  # Username password
-  - password: "raymondflorendo.320"
   roles:
     - role_under_test
