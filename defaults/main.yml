@@ -30,7 +30,7 @@ mariadb_root_password: "{{ db_root_password }}"
 mariadb_databases:
   - name: "{{ database_name }}"
 
-baseUrl: http://yum.mariadb.org/10.3/centos7-amd64
+baseUrl: http://yum.mariadb.org/10.4/centos7-amd64
 gpgKey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 
 #
@@ -39,7 +39,7 @@ gpgKey: https://yum.mariadb.org/RPM-GPG-KEY-MariaDB
 caddy_bin_dir: /usr/local/bin
 caddy_conf_dir: /etc/caddy
 caddy_certs_dir: /etc/ssl/caddy
-caddy_download_url: https://caddyserver.com/download/linux/amd64?license=personal
+caddy_download_url: https://caddyserver.com/download/linux/amd64?license=&telemetry=off
 caddy_conf_file: |
   localhost:8080
   gzip

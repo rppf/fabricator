@@ -12,7 +12,7 @@
     name: "{{ packages }}"
   vars:
     packages:
-    - MariaDB
+    - MariaDB-client
     - MariaDB-server
     - MySQL-python
 
