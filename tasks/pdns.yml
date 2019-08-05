@@ -1,0 +1,27 @@
+---
+- name: Download dependencies.
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - epel-release
+    - yum-plugin-priorities 
+
+- name: Download PowerDNS repo.
+  get_url:
+    url: https://repo.powerdns.com/repo-files/centos-auth-42.repo
+    dest: /etc/yum.repos.d/powerdns-auth-42.repo
+
+- name: Update repositories
+  yum:
+    name: '*'
+    state: latest
+    update_cache: yes
+
+- name: Download PowerDNS and MySQL backend for PowerDNS.
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - pdns
+    - pdns-backend-mysql

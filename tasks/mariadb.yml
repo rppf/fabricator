@@ -84,3 +84,22 @@
     login_user: root
     login_password: "{{ mariadb_root_password }}"
     state: present
+
+# +-+-+-+-+ +-+-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+
+# |C|o|p|y| |p|d|n|s|.|s|q|l| |t|o| |r|e|m|o|t|e| |m|a|c|h|i|n|e|s|
+# +-+-+-+-+ +-+-+-+-+-+-+-+-+ +-+-+ +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+
+- name: Copy pdns.sql to remote machines
+  copy:
+    src: ../pdns.sql
+    dest: /tmp/pdns.sql
+
+# +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+
+# |I|n|s|e|r|t| |n|e|c|e|s|s|a|r|y| |t|a|b|l|e|s| |f|o|r| |P|o|w|e|r|D|N|S|
+# +-+-+-+-+-+-+ +-+-+-+-+-+-+-+-+-+ +-+-+-+-+-+-+ +-+-+-+ +-+-+-+-+-+-+-+-+
+- name: Insert tables for PowerDNS
+  mysql_db:
+    name: "{{ item.name }}"
+    login_user: root
+    login_password: "{{ mariadb_root_password }}"
+    state: import
+    target: /tmp/pdns.sql
