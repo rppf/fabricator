@@ -22,14 +22,18 @@
     group: www-data
     mode: 0555
 
-- name: Install firewalld & epel-release
+- name: Instal epel-release
   yum:
-    name:
-      - epel-release
-      - firewalld
+    name: epel-release
+    state: latest
+
+- name: Install firewalld
+  yum:
+    name: firewalld
     state: latest
 
 - name: Start firewalld
   service:
     name: firewalld
     state: started
+    enables: yes
