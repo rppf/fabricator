@@ -11,7 +11,10 @@
     enabled: yes
 
 - name: Create a new zone named redis
-  command: firewall-cmd --permanent --new-zone=redis
+  firewalld:
+    zone: redis
+    state: present
+    permanent: yes
 
 - name: Open port 6397
   firewalld:
